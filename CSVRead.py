@@ -1,19 +1,14 @@
-import csv
+import pandas as pd
 
 class CSVRead():
 
     def __init__(self, filename):
-        self.csvFile = open('datasets/'+filename+'.csv', 'r')
-        self.reader = csv.reader(self.csvFile)
+        self.trainData = pd.read_csv('datasets/'+filename+'.csv')
+        print(self.trainData.head())
 
-    def next(self):
-        return next(self.reader)
-
-    def getRawReader(self):
-        return self.reader
-
-    def close(self):
-        self.csvFile.close()
-        return None
-
-        
+    def getLine(self, line):
+        print(self.trainData.iloc[[line]])
+        return self.trainData.head(line)
+    
+    def getAllData(self):
+        return self.trainData
