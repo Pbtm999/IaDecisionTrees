@@ -1,16 +1,19 @@
-from CSVRead import CSVRead
+from Dataset import Dataset
 from DecisionTree import DecisionTree
-from Node import Node
 
-reader = CSVRead('weather')
+# decissionTree = ID3(CSVRead('weather'))
+dataset = Dataset().readCSV('weather', True)
+decissionTree = DecisionTree(dataset)
 
-# Gets the header
-header = reader.next()
-lenght = len(header)
+# dataset = Dataset().readCSV('restaurant', True)
+# decissionTree = DecisionTree(dataset)
 
-print(header, "len: " + str(lenght))
-for row in reader.getRawReader():
-    print(row)
+# dataset = Dataset().readCSV('iris', True)
+# decissionTree = DecisionTree(dataset)
+
+# print(decissionTree.dataSetEntropy)
+# print(decissionTree.chooseRoot())
+    
 
 # decisionTree = DecisionTree()
 # decisionTree.setRoot(Node(attribute))
