@@ -43,6 +43,7 @@ class Dataset():
         self.lines -= 1
 
     def removeCollum(self, coll):
+        self.header.pop(coll)
         for i in range(len(self.array)): 
             self.array[i].pop(coll)
         self.colls -= 1

@@ -29,10 +29,10 @@ class ID3():
         return self.__Entropy(values)
     
     def __getBestGainAtributte(self):
-        minGain = float('inf')
-        collMin = 0
-        valuesMin = {}
-        for j in range(0, self.dataset.colls):
+        maxGain = float('-inf')
+        collMax = 0
+        valuesMax = {}
+        for j in range(0, self.dataset.colls-1):
             values = {}
             gain = self.dataSetEntropy
             for i in range(0, self.dataset.lines):
@@ -57,12 +57,12 @@ class ID3():
                 total = values[key].pop("total")
                 gain -= (total/self.dataset.lines) * self.__Entropy(values[key])
                 values[key]["total"] = total
-            
-            if (gain < minGain):
-                minGain = gain
-                collMin = j
-                valuesMin = values
 
-        return collMin, valuesMin
+            if (gain > maxGain):
+                maxGain = gain
+                collMax = j
+                valuesMax = values
+
+        return collMax, valuesMax
 
         

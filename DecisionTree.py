@@ -14,7 +14,7 @@ class DecisionTree():
             isClass = False
             for key2 in values[key]:
                 if (key2 != "total"):
-                    if (values[key][key2] == values[key]["total"]):
+                    if (values[key][key2] == 1.0):
                         node.addValue(Node(key2, True))
                         isClass = True
                         print(('\t'*(tabI+1))+key+': ' + key2)
