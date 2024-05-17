@@ -4,23 +4,21 @@ from Node import Node
 class DecisionTree():
 
     def __init__(self, dataset):
-        self.root = self.__generateNode(dataset, 0)
+        self.initialDataset = dataset
+        self.root = self.__generateNode(dataset)
 
-    def __generateNode(self, dataset, tabI):
+    def __generateNode(self, dataset, tabI=0, value=None):
         attribute, values = ID3(dataset).bestAtributte
-        node = Node(dataset.header[attribute])
-        print('\t'*tabI + '<'+dataset.header[attribute]+'>')
+        node = Node(attribute, value)
         for key in values:
             isClass = False
             for key2 in values[key]:
                 if (key2 != "total"):
                     if (values[key][key2] == 1.0):
-                        node.addValue(Node(key2, True))
+                        node.addNeighbour(Node(key2, key, True))
                         isClass = True
-                        print(('\t'*(tabI+1))+key+': ' + key2)
                         break
             if (not isClass):
-                print(('\t'*(tabI+1))+key+':')
                 #cuts the dataset
                 datasetCopy = dataset.copy()
                 linestoRemove = []
@@ -34,6 +32,26 @@ class DecisionTree():
                 datasetCopy.removeCollum(attribute)
 
                 # generates the child node
-                node.addValue(self.__generateNode(datasetCopy, tabI+2))
+                node.addNeighbour(self.__generateNode(datasetCopy, tabI+2, key))
+
+        return node
+
+    def DFSPrint(self, tabI = 0, node = None):
+        
+        if (node == None):
+            node = self.root
+        
+        print('\t'*tabI + '<'+self.initialDataset.header[node.getAttribute()]+'>')
+        
+        for currentNode in node.getNeighbours():
+
+            if (currentNode.isClass):
+                print(('\t'*(tabI+1))+currentNode.getValue()+': ' + currentNode.getAttribute())
+
+            else:
+                print(('\t'*(tabI+1))+currentNode.getValue()+':')
+                self.DFSPrint(tabI+2, currentNode)
+
+
 
 
