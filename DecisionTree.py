@@ -1,5 +1,6 @@
 from ID3 import ID3
 from Node import Node
+from Dataset import Dataset
 
 class DecisionTree():
 
@@ -52,6 +53,28 @@ class DecisionTree():
                 print(('\t'*(tabI+1))+currentNode.getValue()+':')
                 self.DFSPrint(tabI+2, currentNode)
 
+    def classifyExample(self, file):
 
+        dataset = Dataset().readCSV('tests/', file, True, False)
+        for line in range(dataset.lines):
+            actualNode = self.root
+            value = dataset.array[line][actualNode.getAttribute()]
+            while (actualNode.isClass != True):
+                
+                neighbours = actualNode.getNeighbours()
+                
+                for node in (neighbours):
+                    if node.getValue() == value:
+                        actualNode = node
+                        break
 
+                if (actualNode.isClass != True): value = dataset.array[line][int(actualNode.getAttribute())+1]
+                print(value)
 
+            print('Line ' + str(line+1) + ' Class: ' + actualNode.getAttribute())
+        
+        return
+                    
+            
+
+        

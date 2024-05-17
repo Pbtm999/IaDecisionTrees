@@ -8,17 +8,15 @@ class Dataset():
             self.array = dataset
             self.header = header
             self.lines = len(self.array)
-            # if (len(self.array) > 0):
             self.colls = len(self.array[0])
-            # else:
-            #     self.colls = 0
     
-    def readCSV(self, filename, hasId=False):
-        csvFile = open('datasets/'+filename+'.csv', 'r')
+    def readCSV(self, path, filename, hasId=False, Header=True):
+        csvFile = open(path+filename+'.csv', 'r')
         reader = csv.reader(csvFile)
         
-        self.header = next(reader)
-        self.header.pop(0)
+        if (Header):
+            self.header = next(reader)
+            self.header.pop(0)
 
         self.array = []
         for row in reader:
@@ -27,7 +25,7 @@ class Dataset():
         if (hasId):
             for i in range(len(self.array)): 
                 self.array[i].pop(0)
-        
+
         self.lines = len(self.array)
         self.colls = len(self.array[0])
         return self
