@@ -72,19 +72,19 @@ class DecisionTree():
             
             neighbours = actualNode.getNeighbours()
             
+            found = False
             for node in (neighbours):
                 if node.getValue() == value:
                     actualNode = node
+                    found = True
                     break
 
-            if (actualNode.isClass != True): 
+            if (found == False): return -1
+
+            if (actualNode.isClass != True):
                 value = dataset.array[line][(actualNode.getAttribute())]
                 dataset.removeCollum(actualNode.getAttribute())
 
-        print('Line ' + str(line+1) + ' Class: ' + actualNode.getAttribute())
+        # print('Line ' + str(line+1) + ' Class: ' + actualNode.getAttribute())
     
         return actualNode.getAttribute()
-                    
-            
-
-        
