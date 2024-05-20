@@ -10,14 +10,9 @@ dataset = Dataset().readCSV('datasets/', 'restaurant', True)
 restaurantDecissionTree = DecisionTree(dataset)
 print('\nRestaurant Tree:\n')
 restaurantDecissionTree.DFSPrint()
-restaurantDecissionTree.classifyExample('testRestaurant')
+restaurantDecissionTree.classifyMultipleExamples('testRestaurant')
 
 # dataset = Dataset().readCSV('datasets/', 'iris', True)
 # irisDecissionTree = DecisionTree(dataset)
 # print('\nIris Tree:\n')
 # irisDecissionTree.DFSPrint()
-
-# decisionTree = DecisionTree()
-# decisionTree.setRoot(Node(attribute))
-# do the ID3
-

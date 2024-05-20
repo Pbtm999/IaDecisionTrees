@@ -1,8 +1,9 @@
 class Node():
 
-    def __init__(self, attribute, value, isClass = False):
+    def __init__(self, attribute, value, label, isClass = False):
         self.attribute = attribute
         self.isClass = isClass
+        self.label = label
         self.value = value
         if (not isClass):
             self.neighbours = []

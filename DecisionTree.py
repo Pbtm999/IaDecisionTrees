@@ -1,6 +1,7 @@
 from ID3 import ID3
 from Node import Node
 from Dataset import Dataset
+import copy
 
 class DecisionTree():
 
@@ -8,15 +9,16 @@ class DecisionTree():
         self.initialDataset = dataset
         self.root = self.__generateNode(dataset)
 
-    def __generateNode(self, dataset, tabI=0, value=None):
+    def __generateNode(self, dataset, tabI=0, numRemovedCollums=0, value=None):
         attribute, values = ID3(dataset).bestAtributte
-        node = Node(attribute, value)
+        node = Node(attribute, value, dataset.header[attribute])
+
         for key in values:
             isClass = False
             for key2 in values[key]:
                 if (key2 != "total"):
                     if (values[key][key2] == 1.0):
-                        node.addNeighbour(Node(key2, key, True))
+                        node.addNeighbour(Node(key2, key, None, True))
                         isClass = True
                         break
             if (not isClass):
@@ -33,7 +35,7 @@ class DecisionTree():
                 datasetCopy.removeCollum(attribute)
 
                 # generates the child node
-                node.addNeighbour(self.__generateNode(datasetCopy, tabI+2, key))
+                node.addNeighbour(self.__generateNode(datasetCopy, tabI+2, numRemovedCollums+1, key))
 
         return node
 
@@ -42,7 +44,7 @@ class DecisionTree():
         if (node == None):
             node = self.root
         
-        print('\t'*tabI + '<'+self.initialDataset.header[node.getAttribute()]+'>')
+        print('\t'*tabI + '<'+node.label+'>')
         
         for currentNode in node.getNeighbours():
 
@@ -53,27 +55,35 @@ class DecisionTree():
                 print(('\t'*(tabI+1))+currentNode.getValue()+':')
                 self.DFSPrint(tabI+2, currentNode)
 
-    def classifyExample(self, file):
+    def classifyMultipleExamples(self, file):
 
         dataset = Dataset().readCSV('tests/', file, True, False)
         for line in range(dataset.lines):
-            actualNode = self.root
-            value = dataset.array[line][actualNode.getAttribute()]
-            while (actualNode.isClass != True):
-                
-                neighbours = actualNode.getNeighbours()
-                
-                for node in (neighbours):
-                    if node.getValue() == value:
-                        actualNode = node
-                        break
+            self.classifyExample(copy.deepcopy(dataset), line)
 
-                if (actualNode.isClass != True): value = dataset.array[line][int(actualNode.getAttribute())+1]
-                print(value)
-
-            print('Line ' + str(line+1) + ' Class: ' + actualNode.getAttribute())
-        
         return
+    
+    def classifyExample(self, dataset, line):
+
+        actualNode = self.root
+        value = dataset.array[line][actualNode.getAttribute()]
+
+        while (actualNode.isClass != True):
+            
+            neighbours = actualNode.getNeighbours()
+            
+            for node in (neighbours):
+                if node.getValue() == value:
+                    actualNode = node
+                    break
+
+            if (actualNode.isClass != True): 
+                value = dataset.array[line][(actualNode.getAttribute())]
+                dataset.removeCollum(actualNode.getAttribute())
+
+        print('Line ' + str(line+1) + ' Class: ' + actualNode.getAttribute())
+    
+        return actualNode.getAttribute()
                     
             
 
