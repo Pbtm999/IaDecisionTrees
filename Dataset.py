@@ -10,15 +10,15 @@ class Dataset():
             self.lines = len(self.array)
             self.colls = len(self.array[0])
     
-    def readCSV(self, path, filename, hasId=False, Header=True):
+    def readCSV(self, path, filename, hasId=False, hasHeader=True, headerInput = None):
         csvFile = open(path+filename+'.csv', 'r')
         reader = csv.reader(csvFile)
-        
-        if (Header):
+
+        if (hasHeader == True):
             self.header = next(reader)
             self.header.pop(0)
         else:
-            self.header = None
+            self.header = headerInput
 
         self.array = []
         for row in reader:

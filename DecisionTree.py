@@ -55,9 +55,9 @@ class DecisionTree():
                 print(('\t'*(tabI+1))+currentNode.getValue()+':')
                 self.DFSPrint(tabI+2, currentNode)
 
-    def classifyMultipleExamples(self, file):
+    def classifyMultipleExamples(self, path, file):
 
-        dataset = Dataset().readCSV('tests/', file, True, False)
+        dataset = Dataset().readCSV(path, file, True, False)
         for line in range(dataset.lines):
             self.classifyExample(copy.deepcopy(dataset), line)
 
