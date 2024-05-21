@@ -19,5 +19,3 @@ class Node():
 
     def getValue(self):
         return self.value
-
-        

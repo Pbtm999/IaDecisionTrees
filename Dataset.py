@@ -8,7 +8,7 @@ class Dataset():
             self.array = dataset
             self.header = header
             self.lines = len(self.array)
-            self.colls = len(self.array[0])
+            self.cols = len(self.array[0])
     
     def readCSV(self, path, filename, hasId=False, hasHeader=True, headerInput = None):
         csvFile = open(path+filename+'.csv', 'r')
@@ -29,11 +29,11 @@ class Dataset():
                 self.array[i].pop(0)
 
         self.lines = len(self.array)
-        self.colls = len(self.array[0])
+        self.cols = len(self.array[0])
         return self
     
-    def getValue(self, line, coll):
-        return self.array[line][coll]
+    def getValue(self, line, col):
+        return self.array[line][col]
 
     def copy(self):
         return Dataset(copy.deepcopy(self.array), copy.deepcopy(self.header))
@@ -42,9 +42,8 @@ class Dataset():
         self.array.pop(line)
         self.lines -= 1
 
-    def removeCollum(self, coll):
-        if (self.header): self.header.pop(coll)
+    def removeColumn(self, col):
+        if (self.header): self.header.pop(col)
         for i in range(len(self.array)): 
-            self.array[i].pop(coll)
-        self.colls -= 1
-    
+            self.array[i].pop(col)
+        self.cols -= 1

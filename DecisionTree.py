@@ -9,7 +9,7 @@ class DecisionTree():
         self.initialDataset = dataset
         self.root = self.__generateNode(dataset)
 
-    def __generateNode(self, dataset, tabI=0, numRemovedCollums=0, value=None):
+    def __generateNode(self, dataset, tabI=0, numRemovedColumns=0, value=None):
         attribute, values = ID3(dataset).bestAtributte
         node = Node(attribute, value, dataset.header[attribute])
 
@@ -32,10 +32,10 @@ class DecisionTree():
                 for x in sorted(linestoRemove, reverse=True):
                     datasetCopy.removeLine(x)
 
-                datasetCopy.removeCollum(attribute)
+                datasetCopy.removeColumn(attribute)
 
                 # generates the child node
-                node.addNeighbour(self.__generateNode(datasetCopy, tabI+2, numRemovedCollums+1, key))
+                node.addNeighbour(self.__generateNode(datasetCopy, tabI+2, numRemovedColumns+1, key))
 
         return node
 
@@ -83,7 +83,7 @@ class DecisionTree():
 
             if (actualNode.isClass != True):
                 value = dataset.array[line][(actualNode.getAttribute())]
-                dataset.removeCollum(actualNode.getAttribute())
+                dataset.removeColumn(actualNode.getAttribute())
 
         # print('Line ' + str(line+1) + ' Class: ' + actualNode.getAttribute())
     

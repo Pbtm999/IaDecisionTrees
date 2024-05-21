@@ -17,11 +17,11 @@ class ID3():
     def __calcDatasetEntorpy(self):
         values = {}
         for line in range(0, self.dataset.lines):
-            value = self.dataset.getValue(line, self.dataset.colls-1);
+            value = self.dataset.getValue(line, self.dataset.cols-1)
             if (not (value in values)):
-                values[value] = 1;
+                values[value] = 1
             else:
-                values[value] += 1;
+                values[value] += 1
 
         for key in values:
             values[key] /= self.dataset.lines
@@ -30,18 +30,18 @@ class ID3():
     
     def __getBestGainAtributte(self):
         maxGain = float('-inf')
-        collMax = 0
+        colMax = 0
         valuesMax = {}
-        for j in range(0, self.dataset.colls-1):
+        for j in range(0, self.dataset.cols-1):
             values = {}
             gain = self.dataSetEntropy
             for i in range(0, self.dataset.lines):
-                value = self.dataset.getValue(i, j);
+                value = self.dataset.getValue(i, j)
 
                 if (not (value in values)):
-                    values[value] = {"total": 0};
+                    values[value] = {"total": 0}
                 
-                classVar = self.dataset.getValue(i, self.dataset.colls-1)
+                classVar = self.dataset.getValue(i, self.dataset.cols-1)
 
                 if (not (classVar in values[value])):
                     values[value][classVar] = 1
@@ -60,9 +60,7 @@ class ID3():
 
             if (gain > maxGain):
                 maxGain = gain
-                collMax = j
+                colMax = j
                 valuesMax = values
 
-        return collMax, valuesMax
-
-        
+        return colMax, valuesMax
