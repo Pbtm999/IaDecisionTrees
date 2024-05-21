@@ -18,7 +18,7 @@ class DecisionTree():
             for key2 in values[key]:
                 if (key2 != "total"):
                     if (values[key][key2] == 1.0):
-                        node.addNeighbour(Node(key2, key, None, True))
+                        node.addNeighbour(Node(key2, key, None, True, values[key]["total"]))
                         isClass = True
                         break
             if (not isClass):
@@ -49,7 +49,7 @@ class DecisionTree():
         for currentNode in node.getNeighbours():
 
             if (currentNode.isClass):
-                print(('\t'*(tabI+1))+currentNode.getValue()+': ' + currentNode.getAttribute())
+                print(('\t'*(tabI+1))+currentNode.getValue()+': ' + currentNode.getAttribute() + ' (' + str(currentNode.counter) + ')')
 
             else:
                 print(('\t'*(tabI+1))+currentNode.getValue()+':')
