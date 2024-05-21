@@ -47,7 +47,6 @@ class DecisionTree():
 
                     datasetCopy.removeColumn(attribute)
 
-                    # 
                     node.addNeighbour(self.__generateNode(datasetCopy, tabI+2, numRemovedColumns+1, key))
 
         return node
