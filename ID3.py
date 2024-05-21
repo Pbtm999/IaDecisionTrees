@@ -7,6 +7,7 @@ class ID3():
         self.dataSetEntropy = self.__calcDatasetEntorpy()
         self.bestAtributte = self.__getBestGainAtributte()
 
+    # Função calculo da entropia de determinado array com valores das classes 
     def __Entropy(self, X):
         sum = 0
         for i in X:
@@ -14,6 +15,7 @@ class ID3():
             sum += -(X[i]) * np.log2(X[i])
         return sum
     
+    # Função calculo da entropia do dataSet
     def __calcDatasetEntorpy(self):
         values = {}
         for line in range(0, self.dataset.lines):
@@ -28,6 +30,7 @@ class ID3():
 
         return self.__Entropy(values)
     
+    # Função de decissão e escolha do melhor atributo do dataset apresentado
     def __getBestGainAtributte(self):
         maxGain = float('-inf')
         colMax = 0
