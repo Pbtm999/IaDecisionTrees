@@ -17,29 +17,29 @@ def genHeader():
     return header
 
 #Geração das árvores de decissão | datasets na pasta datasets
-weatherDecissionTree = DecisionTree(Dataset().readCSV('datasets/', 'weather', True)) # Árvore do dataset (weather.csv)
-weatherDecissionBinning = DecisionTree(Dataset().readCSV('datasets/', 'weather', True, True, None, 3), True) # Árvore do dataset (weather.csv) com os valores numéricos discretizados
+weatherDecisionTree = DecisionTree(Dataset().readCSV('datasets/', 'weather', True)) # Árvore do dataset (weather.csv)
+weatherDecisionBinning = DecisionTree(Dataset().readCSV('datasets/', 'weather', True, True, None, 3), True) # Árvore do dataset (weather.csv) com os valores numéricos discretizados
 restaurantTree = DecisionTree(Dataset().readCSV('datasets/', 'restaurant', True)) # Árvore do dataset (restaurant.csv)
-irisDecissionTree = DecisionTree(Dataset().readCSV('datasets/', 'iris', True)) # Árvore do dataset (iris.csv)
-irisDecissionTreeBinning = DecisionTree(Dataset().readCSV('datasets/', 'iris', True, True, None, 3), True) # Árvore do dataset (iris.csv) com os valores numéricos discretizados
+irisDecisionTree = DecisionTree(Dataset().readCSV('datasets/', 'iris', True)) # Árvore do dataset (iris.csv)
+irisDecisionTreeBinning = DecisionTree(Dataset().readCSV('datasets/', 'iris', True, True, None, 3), True) # Árvore do dataset (iris.csv) com os valores numéricos discretizados
 fourgameTree = DecisionTree(Dataset().readCSV('datasets/', 'connect4', False, False, genHeader())) # Árvore do dataset (connect4.csv)
 
 # Abre um prompt que requesita a decissão de que árvore de decissão usar
-# returns: type: DecissionTree Instance | Retorna o objeto da árvore de decissão escolhida pelo utilizador
+# returns: type: DecisionTree Instance | Retorna o objeto da árvore de decissão escolhida pelo utilizador
 def ChooseTree():
     print("Choose one tree: \n [1] Weather Tenis Tree \n [2] Weather Tenis Tree with Binning \n [3] Restaurant Stay Tree \n [4] Iris Tree \n [5] Iris Tree with Binning \n [6] Connect Four Tree (Can't be read or its hard to read)")
     choose = input("Insert: ")
     match choose:
         case '1':
-            return weatherDecissionTree
+            return weatherDecisionTree
         case '2':
-            return weatherDecissionBinning
+            return weatherDecisionBinning
         case '3':
             return restaurantTree
         case '4':
-            return irisDecissionTree
+            return irisDecisionTree
         case '5':
-            return irisDecissionTreeBinning
+            return irisDecisionTreeBinning
         case '6':
             return fourgameTree
         case _:
@@ -72,7 +72,7 @@ def showResults(game, result, winner):
             print('The symbol ' + winner + ' just won!')
             return True, False
 
-# Trata da interface e decissão do jogo user vs Ia (decission Tree)
+# Trata da interface e decissão do jogo user vs Ia (decision Tree)
 # returns: void
 def PlayFourGame():
     game = FourGame(7, 6)  # Cria uma nova instância da classe FourGame
