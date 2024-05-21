@@ -18,28 +18,28 @@ def genHeader():
 
 #Geração das árvores de decissão | datasets na pasta datasets
 weatherDecissionTree = DecisionTree(Dataset().readCSV('datasets/', 'weather', True)) # Árvore do dataset (weather.csv)
-weatherDecissionBining = DecisionTree(Dataset().readCSV('datasets/', 'weather', True, True, None, 3), True) # Árvore do dataset (weather.csv) com os valores numéricos discretizados
+weatherDecissionBinning = DecisionTree(Dataset().readCSV('datasets/', 'weather', True, True, None, 3), True) # Árvore do dataset (weather.csv) com os valores numéricos discretizados
 restaurantTree = DecisionTree(Dataset().readCSV('datasets/', 'restaurant', True)) # Árvore do dataset (restaurant.csv)
 irisDecissionTree = DecisionTree(Dataset().readCSV('datasets/', 'iris', True)) # Árvore do dataset (iris.csv)
-irisDecissionTreeBining = DecisionTree(Dataset().readCSV('datasets/', 'iris', True, True, None, 3), True) # Árvore do dataset (iris.csv) com os valores numéricos discretizados
+irisDecissionTreeBinning = DecisionTree(Dataset().readCSV('datasets/', 'iris', True, True, None, 3), True) # Árvore do dataset (iris.csv) com os valores numéricos discretizados
 fourgameTree = DecisionTree(Dataset().readCSV('datasets/', 'connect4', False, False, genHeader())) # Árvore do dataset (connect4.csv)
 
 # Abre um prompt que requesita a decissão de que árvore de decissão usar
 # returns: type: DecissionTree Instance | Retorna o objeto da árvore de decissão escolhida pelo utilizador
 def ChooseTree():
-    print("Choose one tree: \n [1] Weather Tenis Tree \n [2] Weather Tenis Tree with Bining \n [3] Restaurant Stay Tree \n [4] Iris Tree \n [5] Iris Tree with Bining \n [6] Connect Four Tree (Can't be read or its hard to read)")
+    print("Choose one tree: \n [1] Weather Tenis Tree \n [2] Weather Tenis Tree with Binning \n [3] Restaurant Stay Tree \n [4] Iris Tree \n [5] Iris Tree with Binning \n [6] Connect Four Tree (Can't be read or its hard to read)")
     choose = input("Insert: ")
     match choose:
         case '1':
             return weatherDecissionTree
         case '2':
-            return weatherDecissionBining
+            return weatherDecissionBinning
         case '3':
             return restaurantTree
         case '4':
             return irisDecissionTree
         case '5':
-            return irisDecissionTreeBining
+            return irisDecissionTreeBinning
         case '6':
             return fourgameTree
         case _:
